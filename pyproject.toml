@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "income-tax-japan"
+version = "0.1.0"
+description = "A package to calculate the income tax from the gross income in Japan. Based on 2023 income tax rules."
+authors = ["Krishna Soni <krinut7@gmail.com>"]
+include = [{include="income_tax_japan"}]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.test.dependencies]
+pytest-html = "^4.0.2"
+pytest = "^7.3.1"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "[%(levelname)8s]: %(message)s"
+log_file = "logs/test_run.log"
+log_file_level = "DEBUG"
+log_file_format = "[%(levelname)s]:(%(name)s:%(lineno)s): %(message)s"
+addopts = "--html logs/test_report.html --self-contained-html"
+markers = [
+    "slow: marks tests as slow",
+]
+
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "pep440"
+version_provider = "poetry"
+update_changelog_on_bump = true
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
