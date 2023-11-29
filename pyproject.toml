@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "income-tax-japan"
-version = "0.1.0"
+version = "1.0.0"
 description = "A package to calculate the income tax from the gross income in Japan. Based on 2023 income tax rules."
 authors = ["Krishna Soni <krinut7@gmail.com>"]
 include = [{include="income_tax_japan"}]
