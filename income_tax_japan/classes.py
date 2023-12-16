@@ -1,7 +1,21 @@
 class Employee:
+    """The employee class.
+
+    Attributes:
+        STANARD_DEDUCTIONS: The range for exlusion amount default for every employee.
+        PERSONAL_EXEMPTIONS: This is the deduction amount given to all the employees.
+        TAX_RATE: The bracket to calculate the income tax
+        SOCIAL_PREMIUM_RATE: The social premium rate for every employees
+
+    Parameters:
+        gross_income: gross income of the employee
+        dependants: number of dependants of the employee
+    """
+
     _STANDARD_DEDUCTIONS = [0, 1625000, 1800000, 3600000, 6600000, 8500000]
     _PERSONAL_EXPEMPTIONS = [0, 24000000, 24500000, 25000000]
     _TAX_RATE = [0, 1950000, 3300000, 6950000, 9000000, 18000000, 40000000]
+    _SOCIAL_PREMIUM_RATE = 14.75
 
     def __init__(self, gross_income: int, dependants: int):
         self._gross_income = gross_income
@@ -12,6 +26,11 @@ class Employee:
 
     @property
     def exclusion(self) -> int:
+        """Calculate the exclusion amount from the gross income
+
+        Returns:
+            int: exclusion amount from the gross income
+        """
         if self._gross_income in range(
             Employee._STANDARD_DEDUCTIONS[0], Employee._STANDARD_DEDUCTIONS[1]
         ):
@@ -39,6 +58,11 @@ class Employee:
 
     @property
     def personal_expemtion(self) -> int:
+        """Calculate the personal expemtino of the employee
+
+        Returns:
+            int: personal exemption value
+        """
         if self._gross_income in range(
             Employee._PERSONAL_EXPEMPTIONS[0], Employee._PERSONAL_EXPEMPTIONS[1]
         ):
@@ -57,11 +81,20 @@ class Employee:
         return personal_expemtion
 
     @property
+    def dependant_deduction(self) -> int:
+        return self._dependants * 380_000
+
+    @property
+    def social_premium_deduction(self) -> int:
+        return Employee._SOCIAL_PREMIUM_RATE * (self._gross_income - self._exclusion)
+
+    @property
     def taxable_income(self):
         taxable_income = (
             self._gross_income
             - self._exclusion
             - self._personal_expemtions
+            - self.social_premium_deduction
             - self._dependants * 380000
         )
 
